@@ -50,7 +50,7 @@ while coppelia.Cuboids.CheckToHandle():
                 Log(f'Target {target.name}', 'Position in m', target.T.t, 'Rotation in deg', target.T.rpy()*rad)
                 if i > 0 and not pickPlace[i-1].success:
                     target = ready
-                else:
+                elif i == 1:
                     marker = coppelia.ArucoVision.detected[0]
                     target = GetArucoPickPlace(robot, marker, count)[i]
 

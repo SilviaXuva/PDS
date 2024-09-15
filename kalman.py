@@ -1,5 +1,6 @@
 from scipy import linalg
 import numpy as np
+from Helpers.log import Log
 
 class kalmanFilter:
     def __init__(self, _Ts, _Q, _R):
@@ -28,6 +29,8 @@ class kalmanFilter:
     
         self.S = np.linalg.inv(self.C*self.Pp*(self.C.T) + self.R)
         self.K = self.Pp*(self.C.T)*self.S
+
+        Log(self.K)
 
         #Kalman gain will be used in the error
         self.x = self.xp + self.K*(measurement - self.C*self.xp)

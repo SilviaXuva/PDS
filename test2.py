@@ -49,24 +49,26 @@ while coppelia.Cuboids.CheckToHandle():
     else:
         marker = coppelia.ArucoVision.detected[0]
         if count_camera > 20:
+            Log('Parou câmera')
             position = 0
             count_camera+=1
         else:
             position = marker.objectWorldT.t[0]
             count_camera+=1
-        Log('Estimado:', [kalman.update(-vel, position)[0][0], 0, 0])
+        kalman.update(-vel, position)[0][0]
+        # Log('Estimado:', [kalman.update(-vel, position)[0][0], 0, 0])
         angle += vel*Motion.ts
-        Log('angle:', angle)
+        # Log('angle:', angle)
         if count_vel==2:
             vel = random.randrange(1,10)*0.01
-            Log(f'vel: {vel}')
+            #Log(f'vel: {vel}')
             coppelia.Conveyor.Move(vel)
             count_vel = 0
         else:
             count_vel += 1
         coppelia.Step()
         position = coppelia.Cuboids.GetRealPose('3', 'red')
-        Log('Real:', position.t)
+        #Log('Real:', position.t)
         coppelia.Step()
 
 coppelia.Stop()
