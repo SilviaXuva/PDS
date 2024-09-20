@@ -29,7 +29,7 @@ from Helpers.plot import SaveData, Plot
 from Kalman.kalman import kalmanFilter
 
 # Inicializando kalman
-Q = np.matrix([[1,0],[0,1e-4]])
+Q = np.matrix([[1,0],[0,1]])
 R = np.matrix([1])
 kalman_filter = kalmanFilter(Motion.ts, Q, R)
 

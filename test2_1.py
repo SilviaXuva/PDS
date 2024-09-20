@@ -5,7 +5,7 @@ Paths.execution = fr'{Paths.output}\{os.path.splitext(os.path.basename(__file__)
 os.makedirs(Paths.execution, exist_ok=True)
 from Helpers.log import Log
 
-from Helpers.input import Motion
+from Helpers.input import Motion, Conveyor as Conv
 from Helpers.plot import SaveData, Plot
 from Simulators import CoppeliaSim
 from Simulators.CoppeliaSim import Camera, Conveyor, Cuboids
@@ -16,7 +16,7 @@ import random
 from Kalman.kalman import kalmanFilter
 
 # Inicializando kalman
-Q = np.matrix([[1,0],[0,0.01]])
+Q = np.matrix([[1,0],[0,1]])
 R = np.matrix([1])
 kalman_filter = kalmanFilter(Motion.ts, Q, R)
 
@@ -34,7 +34,7 @@ coppelia.Step()
 # Inicializando variáveis
 count_vel = 0
 count_camera = 0
-vel = 0.01
+vel = Conv.vel
 x_pos_integration = 0
 
 # Inicializando vetores
@@ -57,7 +57,7 @@ while coppelia.Cuboids.CheckToHandle():
         real_pose = coppelia.Cuboids.GetRealPose('3', 'red') # Matriz pose do objeto a partir do Coppelia
         
         # Simulando uma oclusão
-        if count_camera > 20:
+        if count_camera > 100000000000000000:
             Log('Parou câmera')
             x_pos = 0
         else:
@@ -75,13 +75,13 @@ while coppelia.Cuboids.CheckToHandle():
             x_pos_integration -= Motion.ts*vel
         Log('Integration:', x_pos_integration);integration.append(x_pos_integration)
 
-        # Ruído na velocidade
-        if count_vel == 2:
-            vel = random.randrange(1,10)*0.01
-            coppelia.Conveyor.Move(vel)
-            count_vel = 0
-        else:
-            count_vel += 1
+        # # Ruído na velocidade
+        # if count_vel == 2:
+        #     vel = random.randrange(1,10)*0.01
+        #     coppelia.Conveyor.Move(vel)
+        #     count_vel = 0
+        # else:
+        #     count_vel += 1
 
         coppelia.Step()
 
