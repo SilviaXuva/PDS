@@ -201,5 +201,5 @@ coppelia.Stop()
 
 SaveRecording()
 
-SaveData('test3', velocity, real, kalman, integration, camera)
-Plot('test3', True)
+SaveData('test4', velocity, real, kalman, integration, camera)
+Plot('test4', True)
