@@ -10,7 +10,7 @@ class kalmanFilter:
 
         #Constant state space model
         self.A = np.matrix([[1,self.Ts],[0,1]]) # 
-        self.B = np.matrix([[0],[1]]) # Não estamos entrando com a velocidade
+        # self.B = np.matrix([[0],[1]]) # Não estamos entrando com a velocidade
         self.C = np.matrix([0,1]) # Matriz de observação
 
         #Initial conditions
