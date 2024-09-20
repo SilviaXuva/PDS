@@ -34,7 +34,7 @@ R = np.matrix([1])
 kalman_filter = kalmanFilter(Motion.ts, Q, R)
 
 # Inicializando Coppelia
-Cb.Create.max = 3
+Cb.Create.max = 1
 robot = DH_LBR_iiwa()
 coppelia = CoppeliaSim(scene='test5.ttt')
 coppelia.Gripper = RobotiqGripper()
