@@ -22,18 +22,18 @@ class kalmanFilter:
         self.xp = np.matrix([[0],[0]])
 
     def update(self, measurement, pCamera):
-        self.x[0] = [pCamera]
+        
+        if pCamera != 0:
+            self.x[0] = [pCamera]
 
-        self.xp = self.A*self.x;  
+        self.xp = self.A*self.x; 
         self.Pp = self.A*self.P*(self.A.T) + self.Q    
     
         self.S = np.linalg.inv(self.C*self.Pp*(self.C.T) + self.R)
         self.K = self.Pp*(self.C.T)*self.S
 
-        Log(self.K)
-
         #Kalman gain will be used in the error
         self.x = self.xp + self.K*(measurement - self.C*self.xp)
-        # self.x = K*measurement + self.xp(1 - K*self.C)
         self.P = self.Pp - self.K*self.C*self.Pp
+
         return (self.x)

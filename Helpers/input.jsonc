@@ -92,7 +92,7 @@
     "Conveyor": {
         "path": "./conveyor", //coppelia path/name
         "tol": 0.0001,
-        "vel": 0.01
+        "vel": 0.02
     },
     "Cuboids": {
         "path": "./ref_cuboid", //coppelia path/name
@@ -108,7 +108,7 @@
             "tol": 0.01
         },
         "Create":{
-            "max": 5, //maximum cuboid to create
+            "max": 0, //maximum cuboid to create
             "x": 0.95,
             "z": 0.225,
             "rx": 0,

@@ -12,6 +12,7 @@ import glob
 import pandas as pd
 from roboticstoolbox import DHRobot, ERobot
 from spatialmath import SE3
+import csv
 
 deg = np.pi/180
 rad = 180/np.pi
@@ -64,6 +65,8 @@ class Target():
                     os.makedirs(path, exist_ok=True)
                     getattr(getattr(self, dataType), f'{measure}_df').columns = [f'q{i}' for i in range(robot.n)]
                     getattr(getattr(self, dataType),f'{measure}_df').to_csv(fr'{path}\{measure}_{dataType}.csv')
+
+        
 
 bins = {
     "green": Pose(
@@ -126,7 +129,7 @@ def GetArucoPickPlace(robot: DHRobot|ERobot, marker: Marker, count: int):
                 actuation = 'close', 
                 shapePath = f'./{marker.color}{marker.id}'
             ),
-            tTot = Motion.tTot,
+            tTot = 1.5,
         ),
         Target(
             name = fr'{prefix}\3.Place',

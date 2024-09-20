@@ -30,7 +30,6 @@ class Cuboids(CoppeliaObj):
             return matrix
 
         try:
-            mass = self.sim.getShapeMass(self.sim.getObject(f'./{color}{id}'))
             objectWorldT = TransformCoppeliaMatrix(
                 self.sim.getObjectMatrix(self.sim.getObject(f'./marker{id}'), self.sim.handle_world)
             )
@@ -38,6 +37,10 @@ class Cuboids(CoppeliaObj):
         except:
             real = [None, None, None]
         return real
+
+    def GetRealVelocity(self, id, color):
+        linear, angular = self.sim.getObjectVelocity(self.sim.getObject(f'./marker{id}'))
+        return linear[0]
 
     def CheckAvailable(self):
         self.available = []
